@@ -1,12 +1,13 @@
-var cols = 20;
-var rows = 20;
+var cols = 50;
+var rows = 50;
 var w,l;
 var cells=[];
 var current;
 var stack =[];
+let speed=1;
 
 function setup() {
-  createCanvas(502,502);
+  createCanvas(innerWidth,innerHeight);
   w = floor(width/cols);
   l = floor(height/rows);
   for(var i = 0 ; i<cols;i++){
@@ -17,18 +18,17 @@ function setup() {
     cells.push(temp);
   }
   current = random(random(cells));
-  console.log(current);
-
 }
 
 function draw() {
+  speed=Number(document.getElementById('s').value);
   background(23);
   for(var i = 0;i<cols;i++){
     for(var j = 0;j<rows;j++){
       cells[i][j].show();
     }
   }
-  //for(var i = 0;i<400;i++){//use this outter loop if want to generate maze immediately and not animate generation
+  for(var i = 0;i<speed;i++){//use this outter loop if want to generate maze immediately and not animate generation
     current.visited = true;
     current.high();
     var next = current.search();
@@ -42,7 +42,7 @@ function draw() {
         current = stack.pop();
       }
     }
-  //}
+  }
 }
 
 class Cell{
